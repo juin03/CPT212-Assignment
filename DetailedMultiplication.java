@@ -28,41 +28,46 @@ public class DetailedMultiplication {
 
         // Result container for final assembly
         long result = 0;
+        int operationCount = 0; // Initialize operation counter
 
         for (int i = multiplicandStr.length() - 1; i >= 0; i--) {
             int digitM = Character.digit(multiplicandStr.charAt(i), 10);
+            operationCount++; // For character access and digit conversion
 
             for (int j = multiplierStr.length() - 1; j >= 0; j--) {
                 int digitN = Character.digit(multiplierStr.charAt(j), 10);
                 int product = digitM * digitN;
+                operationCount += 3; // For character access, digit conversion, and multiplication
 
                 partials.push(product % 10);
                 carriers.push(product / 10);
+                operationCount += 2; // For two push operations
             }
 
             // Print partial results
             System.out.println("\nPartial products for " + multiplierStr + " x " + multiplicandStr.charAt(i));
             while (!partials.isEmpty()) {
                 sb.append(partials.pop());
+                operationCount++; // For each pop operation
             }
             System.out.println("Partial Result: " + sb.toString());
             result += Long.parseLong(sb.toString()) * Math.pow(10, multiplicandStr.length() - 1 - i);
+            operationCount += 2; // For parsing and multiplication
             sb.setLength(0); // Clear StringBuilder
 
             // Print carrier results
             System.out.println("\nCarrier products for " + multiplierStr + " x " + multiplicandStr.charAt(i));
             while (!carriers.isEmpty()) {
                 sb.append(carriers.pop());
+                operationCount++; // For each pop operation
             }
             System.out.println("Carrier Result: " + sb.toString());
             result += Long.parseLong(sb.toString()) * Math.pow(10, multiplicandStr.length() - i);
+            operationCount += 2; // For parsing and multiplication
             sb.setLength(0); // Clear StringBuilder
         }
 
-        System.out.println("\nMultiplication result of " + multiplier + " x " + multiplicand + " = " + result + "\n");
+        System.out.println("\nMultiplication result of " + multiplier + " x " + multiplicand + " = " + result);
+        System.out.println("Total primitive operations: " + operationCount + "\n");
     }
 }
-
-
-
-
