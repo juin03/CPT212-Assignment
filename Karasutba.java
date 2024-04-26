@@ -70,7 +70,7 @@ class Karatsuba {
     }
  
      // Method 2
-    // Main driver function
+    // Main driver function  
     public static void main(String[] args)
     {
         // Showcasing karatsuba multiplication
@@ -125,6 +125,7 @@ class Karatsuba {
  
              // Again printing the expected and 
             // corresponding actual product 
+            System.out.println("Time: " + i);
             System.out.println("Expected: " + expectedProduct);
             System.out.println("Actual: " + actualProduct + "\n\n");
  
@@ -132,3 +133,4 @@ class Karatsuba {
         }
     }
 }
+
