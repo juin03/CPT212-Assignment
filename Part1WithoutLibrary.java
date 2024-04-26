@@ -1,32 +1,30 @@
 public class Part1WithoutLibrary {
   public static void main(String[] args) {
-      int operationCount = 0; // Initialize operation counter
+    //   int operationCount = 0; // Initialize operation counter
 
-      for (int i = 1; i <= 10; i++) {
-          operationCount++; // For the loop condition check
+    /*
+     * For loop primitive operations count:
+     * Initialization = 1
+     * Condition check = n+1 [11]
+     * Increment = 2n [20]
+     * Function call = n [10]
+     */
+      for (int n = 1; n <= 10; n++) {
 
-          int lowerBound = (int) Math.pow(10, i - 1);
-          int upperBound = (int) Math.pow(10, i) - 1;
-          operationCount += 4; // For two power calculations and two subtractions
+          int lowerBound = (int) Math.pow(10, n - 1);
+          int upperBound = (int) Math.pow(10, n) - 1;
 
           int multiplier = pseudoRandom(lowerBound, upperBound);
           int multiplicand = pseudoRandom(lowerBound, upperBound);
-          operationCount += 2; // For two method calls
 
           System.out.println("==============================================================");
-          System.out.println(i + " digits");
+          System.out.println(n + " digits");
           System.out.println("Multiplier: " + multiplier);
           System.out.println("Multiplicand: " + multiplicand);
-          operationCount += 4; // For four print operations
 
           multiply(multiplier, multiplicand);
-          operationCount++; // For calling the multiply method
-
-          operationCount++; // For the loop increment (i++)
       }
-      operationCount++; // For the final condition check in the loop
-
-      System.out.println("Total primitive operations: " + operationCount);
+    //   System.out.println("Total primitive operations: " + operationCount);
   }
 
   public static int pseudoRandom(int lowerBound, int upperBound) {
@@ -36,30 +34,48 @@ public class Part1WithoutLibrary {
   }
 
   public static void multiply(int multiplier, int multiplicand) {
-      String multiplierStr = Integer.toString(multiplier);
-      String multiplicandStr = Integer.toString(multiplicand);
-
       // Result container for final assembly
       long result = 0;
       int operationCount = 0; // Initialize operation counter
 
+      String multiplierStr = Integer.toString(multiplier);
+      String multiplicandStr = Integer.toString(multiplicand);
+      operationCount += 2; // For parsing multiplier and multiplicand
+
+      /*
+      For loop:
+       * Initialization = 3
+       * Condition check = n+1
+       * Decrement = 2n
+       * length(n) = 2, i=1, run 2 times, condition check = 3, decrement =2
+       */
+      operationCount+=3; // For initialization of i
       for (int i = multiplicandStr.length() - 1; i >= 0; i--) {
           int digitM = Character.digit(multiplicandStr.charAt(i), 10);
-          operationCount += 2; // For character access and digit conversion
+          operationCount += 3; // For character access, digit conversion and assignment
 
           StringBuilder partials = new StringBuilder();
           StringBuilder carriers = new StringBuilder();
 
+          /*
+           * For loop:
+           * Initialization = 3
+           * Condition check = n+1
+           * Decrement = 2n
+           */
+          operationCount += 3; // For initialization of j
           for (int j = multiplierStr.length() - 1; j >= 0; j--) {
               int digitN = Character.digit(multiplierStr.charAt(j), 10);
+              operationCount += 3; // For character access, digit conversion and assignment
               int product = digitM * digitN;
-              operationCount += 4; // For character access, digit conversion, multiplication, and condition check
+              operationCount += 2; // For multiplication and assignment
 
               partials.append(product % 10);
               carriers.append(product / 10);
-              operationCount += 2; // For two append operations
+              operationCount += 4; // For two append operations and arithmetic operations
 
-              operationCount++; // For the loop increment (j--)
+              operationCount++; // For the loop condition check
+              operationCount+=2; // For the decrement j--
           }
           operationCount++; // For the final condition check in the inner loop
 
@@ -67,15 +83,16 @@ public class Part1WithoutLibrary {
           System.out.println("\nPartial products for " + multiplierStr + " x " + multiplicandStr.charAt(i));
           System.out.println("Partial Result: " + partials.reverse().toString());
           result += Long.parseLong(partials.toString()) * Math.pow(10, multiplicandStr.length() - 1 - i);
-          operationCount += 3; // For parsing, multiplication, and power calculation
+          operationCount += 9; // For the line above
 
           // Print carrier results
           System.out.println("\nCarrier products for " + multiplierStr + " x " + multiplicandStr.charAt(i));
           System.out.println("Carrier Result: " + carriers.reverse().toString());
           result += Long.parseLong(carriers.toString()) * Math.pow(10, multiplicandStr.length() - i);
-          operationCount += 3; // For parsing, multiplication, and power calculation
+          operationCount += 9; // For the line above
 
-          operationCount++; // For the loop increment (i--)
+          operationCount++; // For the loop condition check
+          operationCount+=2; // For the decrement i--
       }
       operationCount++; // For the final condition check in the outer loop
 
