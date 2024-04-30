@@ -1,7 +1,5 @@
 public class Part1WithoutLibrary {
   public static void main(String[] args) {
-    //   int operationCount = 0; // Initialize operation counter
-
     /*
      * For loop primitive operations count:
      * Initialization = 1
@@ -24,7 +22,6 @@ public class Part1WithoutLibrary {
 
           multiply(multiplier, multiplicand);
       }
-    //   System.out.println("Total primitive operations: " + operationCount);
   }
 
   public static int pseudoRandom(int lowerBound, int upperBound) {
