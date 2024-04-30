@@ -9,8 +9,7 @@ class KaratsubaAlgo {
     public static BigInteger mult(BigInteger x, BigInteger y, PrimitiveOperationsCounter counter, int times) {
         // Base case for recursion
         if (x.compareTo(BigInteger.TEN) < 0 && y.compareTo(BigInteger.TEN) < 0) {
-            counter.increment(1);  // Counting multiplication as a primitive operation
-            counter.increment(2);
+            counter.increment(3);  // Counting multiplication as a primitive operation
             return x.multiply(y);
         }
 
@@ -19,11 +18,11 @@ class KaratsubaAlgo {
         int noTwoLength = y.toString().length();
         counter.increment(3);
         int maxNumLength = Math.max(noOneLength, noTwoLength);
-        counter.increment(1);
+        counter.increment(2);
 
 
         int halfMaxNumLength = (maxNumLength / 2) + (maxNumLength % 2);
-        counter.increment(3);
+        counter.increment(4);
         BigInteger maxNumLengthTen = BigInteger.TEN.pow(halfMaxNumLength);
         counter.increment(2);
 
@@ -58,7 +57,7 @@ class KaratsubaAlgo {
         BigInteger result = z0.multiply(BigInteger.TEN.pow(2 * halfMaxNumLength))
                 .add(z1.subtract(z0).subtract(z2).multiply(BigInteger.TEN.pow(halfMaxNumLength)))
                 .add(z2);
-        counter.increment(6);
+        counter.increment(10);
 
         return result;
     }
