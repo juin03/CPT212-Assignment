@@ -4,10 +4,10 @@ public class Part1WithoutLibrary {
      * For loop primitive operations count:
      * Initialization = 1
      * Condition check = n+1 [11]
-     * Increment = 2n [20]
+     * Increment = 2n [25]
      * Function call = n [10]
      */
-      for (int n = 2; n <= 5; n++) {
+      for (int n = 2; n <= 10; n++) {
 
           int lowerBound = (int) Math.pow(10, n - 1);
           int upperBound = (int) Math.pow(10, n) - 1;
@@ -15,12 +15,12 @@ public class Part1WithoutLibrary {
           int multiplier = pseudoRandom(lowerBound, upperBound);
           int multiplicand = pseudoRandom(lowerBound, upperBound);
 
-          System.out.println("==============================================================");
+          System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~LINE BREAK~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~·~~~~~~~~~~~~~~~~~~~~~~~~");
           System.out.println(n + " digits");
-          System.out.println(String.format("%"+15+"s", multiplier));
+          System.out.println(String.format("%"+25+"s", multiplier));
           System.out.print("x");
-          System.out.println(String.format("%"+14+"s", multiplicand));
-          System.out.println("_________________");
+          System.out.println(String.format("%"+24+"s", multiplicand));
+          System.out.println("_____________________________");
 
           multiply(multiplier, multiplicand);
       }
@@ -84,27 +84,32 @@ public class Part1WithoutLibrary {
           operationCount++; // For the final condition check in the inner loop
 
           // Print partial results
-          result += Long.parseLong(partials.toString()) * Math.pow(10, multiplicandStr.length() - 1 - i);
+          // result += Long.parseLong(partials.toString()) * Math.pow(10, multiplicandStr.length() - 1 - i);
           operationCount += 9; // For the line above
 
 
-          System.out.print(String.format("%"+15+"s",partials.reverse().toString()+ (" ".repeat(partialCount))));
+          System.out.print(String.format("%"+25+"s",partials.reverse().toString()+ (" ".repeat(partialCount))));
           System.out.println("\t\t"+"partial products for (=" + multiplicand + " x " + multiplicandStr.charAt(i) + ")");
           partialCount++;
 
           // Print carrier results
-          result += Long.parseLong(carriers.toString()) * Math.pow(10, multiplicandStr.length() - i);
+          // result += Long.parseLong(carriers.toString()) * Math.pow(10, multiplicandStr.length() - i);
           operationCount += 9; // For the line above
 
           if (i==0){
             System.out.print("+");
-            System.out.print(String.format("%"+14+"s",carriers.reverse().toString()+ (" ".repeat(carrierCount))));
+            System.out.print(String.format("%"+24+"s",carriers.reverse().toString()+ (" ".repeat(carrierCount))));
             System.out.println("\t\t"+"carriers for (" + multiplicand + " x " + multiplicandStr.charAt(i) + ")");
           }else{
-            System.out.print(String.format("%"+15+"s",carriers.reverse().toString()+ (" ".repeat(carrierCount))));
+            System.out.print(String.format("%"+25+"s",carriers.reverse().toString()+ (" ".repeat(carrierCount))));
             System.out.println("\t\t"+"carriers for (" + multiplicand + " x " + multiplicandStr.charAt(i) + ")");
           }
           carrierCount++;
+
+          // Accumulate the final result considering both partials and carries
+long partialValue = Long.parseLong(partials.toString()) * (long) Math.pow(10, multiplicandStr.length() - 1 - i);
+long carrierValue = Long.parseLong(carriers.toString()) * (long) Math.pow(10, multiplicandStr.length() - i);
+result += partialValue + carrierValue;
 
 
           operationCount++; // For the loop condition check
@@ -112,9 +117,9 @@ public class Part1WithoutLibrary {
       }
       operationCount++; // For the final condition check in the outer loop
 
-      System.out.println("_________________");
-      System.out.println(String.format("%"+15+"s", result));
-      System.out.println("=================");
+      System.out.println("_____________________________");
+      System.out.println(String.format("%"+25+"s", result));
+      System.out.println("=============================");
       System.out.println("Total primitive operations: " + operationCount + "\n");
   }
 }
