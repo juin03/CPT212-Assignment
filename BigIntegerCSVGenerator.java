@@ -6,7 +6,7 @@ import java.util.Random;
 public class BigIntegerCSVGenerator {
 
     public static void main(String[] args) {
-        String filePath = "CPT212-Assignment\\Karatsuba.csv";
+        String filePath = "Karatsuba.csv";
         try (FileWriter writer = new FileWriter(filePath)) {
             // Write header line
             writer.append("n,Multiplicand,Multiplier\n");
