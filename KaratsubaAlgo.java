@@ -9,7 +9,7 @@ class KaratsubaAlgo {
     public static BigInteger mult(BigInteger x, BigInteger y, PrimitiveOperationsCounter counter, int times) {
         // Base case for recursion
         if (x.compareTo(BigInteger.TEN) < 0 && y.compareTo(BigInteger.TEN) < 0) {
-            counter.increment(3);  // Counting multiplication as a primitive operation
+            counter.increment(5);  // Counting multiplication as a primitive operation
             return x.multiply(y);
         }
 
@@ -29,7 +29,6 @@ class KaratsubaAlgo {
         // Counting division as a primitive operation
         BigInteger a = x.divide(maxNumLengthTen);
         counter.increment(2);
-
 
         // Counting remainder as a primitive operation
         BigInteger b = x.remainder(maxNumLengthTen);
@@ -59,11 +58,12 @@ class KaratsubaAlgo {
                 .add(z2);
         counter.increment(10);
 
+        counter.increment(1);
         return result;
     }
 
     public static void main(String[] args) {
-        String filePath = "C:\\Users\\User\\Desktop\\USM\\Y2\\Sem2\\CPT212\\CPT212_Assignment1_2024\\CPT212-Assignment\\Karatsuba.csv";
+        String filePath = "C:\\Users\\cch\\Desktop\\algo\\CPT212-Assignment\\Karatsuba.csv";
 
         List<String> lines = new ArrayList<>();
         try (Scanner scanner = new Scanner(new File(filePath))) {
