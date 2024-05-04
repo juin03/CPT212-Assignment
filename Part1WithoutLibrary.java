@@ -51,7 +51,7 @@ public class Part1WithoutLibrary {
       operationCount+=3; // For initialization of i
       for (int i = multiplicandStr.length() - 1; i >= 0; i--) {
           int digitM = Character.digit(multiplicandStr.charAt(i), 10);
-          operationCount += 3; // For character access, digit conversion and assignment
+          operationCount += 3; // For character access, C
 
           StringBuilder partials = new StringBuilder();
           StringBuilder carriers = new StringBuilder();
