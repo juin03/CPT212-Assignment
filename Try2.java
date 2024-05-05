@@ -5,7 +5,7 @@ import java.io.IOException;
 public class Try2 {
   
   public static void main(String[] args) {
-    try (FileWriter writer = new FileWriter("operation_counts.csv")) {
+    try (FileWriter writer = new FileWriter("CPT212-Assignment\\operation_counts.csv")) {
       writer.write("Digits,Primitive Operations\n");  // Header for CSV file
 
       for (int i = 1; i <= 50; i += 1) {

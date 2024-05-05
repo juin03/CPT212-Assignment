@@ -63,7 +63,7 @@ class KaratsubaAlgo {
     }
 
     public static void main(String[] args) {
-        String filePath = "Karatsuba.csv";
+        String filePath = "CPT212-Assignment\\Karatsuba.csv";
 
         List<String> lines = new ArrayList<>();
         try (Scanner scanner = new Scanner(new File(filePath))) {
