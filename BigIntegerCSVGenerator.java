@@ -12,7 +12,7 @@ public class BigIntegerCSVGenerator {
             writer.append("n,Multiplicand,Multiplier\n");
 
             // Loop from n-1 to n = 999
-            for (int n = 1; n < 100; n++) {
+            for (int n = 1; n < 1000; n++) {
                 BigInteger multiplicand = generateBigIntegerWithNDigits(n);
                 BigInteger multiplier = generateBigIntegerWithNDigits(n);
 
