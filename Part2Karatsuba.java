@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.io.File;
 
-class KaratsubaAlgo {
+class Part2Karatsuba {
 
     public static BigInteger mult(BigInteger x, BigInteger y, PrimitiveOperationsCounter counter, int times) {
         // Base case for recursion
@@ -64,7 +64,7 @@ class KaratsubaAlgo {
     }
 
     public static void main(String[] args) {
-        String filePath = "CPT212-Assignment\\Karatsuba.csv";
+        String filePath = "Dataset.csv";
 
         List<String> lines = new ArrayList<>();
          try (Scanner scanner = new Scanner(new File(filePath))) {

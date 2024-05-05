@@ -3,16 +3,16 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.util.Random;
 
-public class BigIntegerCSVGenerator {
+public class DatasetGenerator {
 
     public static void main(String[] args) {
-        String filePath = "CPT212-Assignment\\Karatsuba.csv";
+        String filePath = "Dataset.csv";
         try (FileWriter writer = new FileWriter(filePath)) {
             // Write header line
             writer.append("n,Multiplicand,Multiplier\n");
 
             // Loop from n-1 to n = 999
-            for (int n = 1; n < 1000; n++) {
+            for (int n = 1; n < 10; n++) {
                 BigInteger multiplicand = generateBigIntegerWithNDigits(n);
                 BigInteger multiplier = generateBigIntegerWithNDigits(n);
 
