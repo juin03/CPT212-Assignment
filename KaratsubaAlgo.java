@@ -3,6 +3,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.io.File;
 
 class KaratsubaAlgo {
 
@@ -66,20 +67,47 @@ class KaratsubaAlgo {
         String filePath = "CPT212-Assignment\\Karatsuba.csv";
 
         List<String> lines = new ArrayList<>();
-        try (Scanner scanner = new Scanner(new File(filePath))) {
-            scanner.nextLine(); // Skip header line
-            lines.add("n,Multiplicand,Multiplier,Result,PrimitiveOperations\n"); // Add new header with Result column
-            while (scanner.hasNextLine()) {
-                String[] data = scanner.nextLine().split(",");
-                int n = Integer.parseInt(data[0]);
-                BigInteger multiplicand = new BigInteger(data[1]);
-                BigInteger multiplier = new BigInteger(data[2]);
-                PrimitiveOperationsCounter counter = new PrimitiveOperationsCounter();
-                BigInteger product = mult(multiplicand, multiplier, counter, n);
+         try (Scanner scanner = new Scanner(new File(filePath))) {
 
-                lines.add(String.format("%d,%s,%s,%s,%d", n, multiplicand, multiplier, product, counter.getCount()));
+            scanner.nextLine(); 
+            lines.add("n,Multiplicand,Multiplier,Product,Result(Part 1),Result(Part 2),PrimitiveOperations(Part 1),PrimitiveOperations(Part 2)");
+
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine().trim();
+                if (line.isEmpty()) {
+                    continue; // Skip empty lines
+                }
+
+                String[] data = line.split(",");
+                if (data.length < 6) {
+                    // Skip rows that don't have enough columns
+                    System.out.println("Skipping row due to insufficient columns: " + line);
+                    continue;
+                }
+
+                try {
+                    int n = Integer.parseInt(data[0]);
+                    BigInteger multiplicand = new BigInteger(data[1]);
+                    BigInteger multiplier = new BigInteger(data[2]);
+                    String productPart1 = data[3]; // Keep the original Product
+                    String resultPart1 = data[4];  // Keep the original Result(Part 1)
+                    String primitiveOpsPart1 = data[5]; // Keep the original PrimitiveOperations(Part 1)
+
+                    // Initialize the primitive operation counter for Karatsuba
+                    PrimitiveOperationsCounter counter = new PrimitiveOperationsCounter();
+
+                    // Compute the product using Karatsuba's algorithm
+                    BigInteger productPart2 = mult(multiplicand, multiplier, counter, n);
+
+                    // Add the new results to the existing data
+                    lines.add(String.format("%s,%s,%s,%s,%s,%s,%s,%d",
+                            data[0], data[1], data[2], productPart1, resultPart1, productPart2, primitiveOpsPart1, counter.getCount()));
+                } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                    // Handle invalid data by printing a warning message
+                    System.out.println("Skipping row due to invalid data: " + line);
+                }
             }
-        } catch (IOException e) {
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 

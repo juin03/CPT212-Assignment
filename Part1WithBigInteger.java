@@ -59,7 +59,6 @@ public class Part1WithBigInteger {
   
     private static BigInteger multiply(BigInteger multiplicand, BigInteger multiplier,
             Part1WithBigInteger.PrimitiveOperationsCounter counter, int n) {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'multiply'");
     }
 
@@ -137,14 +136,14 @@ public class Part1WithBigInteger {
             carrierCount++;
   
             // Accumulate the final result considering both partials and carries
-            long partialValue = Long.parseLong(partials.toString()) * (long) Math.pow(10, multiplicandStr.length() - 1 - i);
-            long carrierValue = Long.parseLong(carriers.toString()) * (long) Math.pow(10, multiplicandStr.length() - i);
-            result += partialValue + carrierValue;
-            counter.increment(18);; // For partialValue and carrierValue calculation
-            counter.increment(3);; // For the addition and assignment
+            BigInteger partialValue = new BigInteger(partials.toString()).multiply(BigInteger.TEN.pow(multiplicandStr.length() - 1 - i));
+            BigInteger carrierValue = new BigInteger(carriers.toString()).multiply(BigInteger.TEN.pow(multiplicandStr.length() - i));
+            result = result.add(partialValue).add(carrierValue);
+            counter.increment(18); // For partialValue and carrierValue calculation
+            counter.increment(3); // For the addition and assignment
   
             counter.increment(1); // For the loop condition check
-            counter.increment(2);; // For the decrement i--
+            counter.increment(2); // For the decrement i--
         }
         counter.increment(1);; // For the final condition check in the outer loop
         
