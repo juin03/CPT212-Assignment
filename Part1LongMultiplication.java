@@ -7,9 +7,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.math.BigInteger;
 
-public class Part1ImportLibrary {
+public class Part1LongMultiplication {
     public static void main(String[] args) {
-        String filePath = "CPT212-Assignment\\Karatsuba.csv";
+        String filePath = "CPT212-Assignment\\Dataset.csv";
         List<String> lines = new ArrayList<>();
 
         // Add a new header with Result and PrimitiveOperations columns
@@ -23,12 +23,13 @@ public class Part1ImportLibrary {
                 int n = Integer.parseInt(data[0]);
                 BigInteger multiplicand = new BigInteger(data[1]);
                 BigInteger multiplier = new BigInteger(data[2]);
+                BigInteger product = new BigInteger(data[3]);
 
                 // Perform multiplication and get the result with the operation count
                 MultiplicationResult multiplicationResult = multiply(multiplier, multiplicand, n);
 
                 // Add the result row to the lines list
-                lines.add(String.format("%d,%s,%s,%s,%d,%d", n, multiplicand, multiplier, multiplicand.multiply(multiplier), multiplicationResult.result, multiplicationResult.operationCount));
+                lines.add(String.format("%d,%s,%s,%s,%d,%d", n, multiplicand, multiplier, product, multiplicationResult.result, multiplicationResult.operationCount));
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -57,10 +58,8 @@ public class Part1ImportLibrary {
 
     // Multiply function to calculate the product and count operations
 public static MultiplicationResult multiply(BigInteger multiplier, BigInteger multiplicand, int n) {
-    if (n >= 11) {
-        // Special message if `n` is 10 or more
-    } else {
-        // Regular formatted output for n < 10
+    if (n <= 10){
+        // Regular formatted output for n <= 10
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~LINE BREAK~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~·~~~~~~~~~~~~~~~~~~~~~~~~\n");
         System.out.println("Number of digits, n: " + n);
         System.out.println("Multiplicand: " + multiplicand);
@@ -92,11 +91,11 @@ public static MultiplicationResult multiply(BigInteger multiplier, BigInteger mu
     operationCount += 3; // For initialization of i
     for (int i = multiplicandStr.length() - 1; i >= 0; i--) {
         int digitM = Character.digit(multiplicandStr.charAt(i), 10);
-        operationCount += 3; // For character access, C
+        operationCount += 3; // For character access
 
         StringBuilder partials = new StringBuilder();
         StringBuilder carriers = new StringBuilder();
-        operationCount += 2; // For two StringBuilder initializations
+        operationCount +=4 ; // For two StringBuilder initializations
 
         /*
          * For loop:
@@ -110,7 +109,7 @@ public static MultiplicationResult multiply(BigInteger multiplier, BigInteger mu
             operationCount += 3; // For character access, digit conversion, and assignment
 
             BigInteger product = BigInteger.valueOf(digitM).multiply(BigInteger.valueOf(digitN));
-            operationCount += 2; // For multiplication and assignment
+            operationCount += 4; // For multiplication and assignment
 
             partials.append(product.mod(BigInteger.TEN));
             carriers.append(product.divide(BigInteger.TEN));
@@ -136,7 +135,6 @@ public static MultiplicationResult multiply(BigInteger multiplier, BigInteger mu
                 System.out.println("\t" + "carriers for (" + multiplicand + " x " + multiplierStr.charAt(i) + ")");
             }
         }
-
         partialCount++;
         carrierCount++;
 
@@ -144,7 +142,7 @@ public static MultiplicationResult multiply(BigInteger multiplier, BigInteger mu
         BigInteger partialValue = new BigInteger(partials.toString()).multiply(BigInteger.TEN.pow(multiplicandStr.length() - 1 - i));
         BigInteger carrierValue = new BigInteger(carriers.toString()).multiply(BigInteger.TEN.pow(multiplicandStr.length() - i));
         result = result.add(partialValue).add(carrierValue);
-        operationCount += 18; // For partialValue and carrierValue calculation
+        operationCount += 15; // For partialValue and carrierValue calculation
         operationCount += 3; // For the addition and assignment
 
         operationCount++; // For the loop condition check
@@ -160,7 +158,7 @@ public static MultiplicationResult multiply(BigInteger multiplier, BigInteger mu
     System.out.println("Total primitive operations for " + n + " digits: " + operationCount + "\n");
 
     // Return both the result and the operation count using the new class
+    operationCount++; // For the return statement
     return new MultiplicationResult(result, operationCount);
 }
-
 }

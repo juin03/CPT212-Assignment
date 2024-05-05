@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.io.File;
-
-class KaratsubaAlgo {
+class Part2Karatsuba {
 
     public static BigInteger mult(BigInteger x, BigInteger y, PrimitiveOperationsCounter counter, int times) {
         // Base case for recursion
@@ -20,7 +19,6 @@ class KaratsubaAlgo {
         counter.increment(3);
         int maxNumLength = Math.max(noOneLength, noTwoLength);
         counter.increment(2);
-
 
         int halfMaxNumLength = (maxNumLength / 2) + (maxNumLength % 2);
         counter.increment(4);
@@ -55,8 +53,8 @@ class KaratsubaAlgo {
 
         // Counting addition and subtraction as primitive operations
         BigInteger result = z0.multiply(BigInteger.TEN.pow(2 * halfMaxNumLength))
-                .add(z1.subtract(z0).subtract(z2).multiply(BigInteger.TEN.pow(halfMaxNumLength)))
-                .add(z2);
+                .add(z1.subtract(z0).subtract(z2).multiply(BigInteger.TEN.pow(halfMaxNumLength))
+                .add(z2));
         counter.increment(10);
 
         counter.increment(1);
@@ -64,11 +62,10 @@ class KaratsubaAlgo {
     }
 
     public static void main(String[] args) {
-        String filePath = "CPT212-Assignment\\Karatsuba.csv";
+        String filePath = "CPT212-Assignment\\Dataset.csv";
 
         List<String> lines = new ArrayList<>();
          try (Scanner scanner = new Scanner(new File(filePath))) {
-
             scanner.nextLine(); 
             lines.add("n,Multiplicand,Multiplier,Product,Result(Part 1),Result(Part 2),PrimitiveOperations(Part 1),PrimitiveOperations(Part 2)");
 

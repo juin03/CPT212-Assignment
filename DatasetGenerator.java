@@ -3,21 +3,21 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.util.Random;
 
-public class BigIntegerCSVGenerator {
-
+public class DatasetGenerator {
     public static void main(String[] args) {
-        String filePath = "CPT212-Assignment\\Karatsuba.csv";
+        String filePath = "CPT212-Assignment\\Dataset.csv";
         try (FileWriter writer = new FileWriter(filePath)) {
             // Write header line
-            writer.append("n,Multiplicand,Multiplier\n");
+            writer.append("n,Multiplicand,Multiplier,Product\n");
 
             // Loop from n-1 to n = 999
-            for (int n = 1; n < 1000; n++) {
+            for (int n = 1; n < 100; n++) {
                 BigInteger multiplicand = generateBigIntegerWithNDigits(n);
                 BigInteger multiplier = generateBigIntegerWithNDigits(n);
+                BigInteger product = multiplicand.multiply(multiplier);
 
                 // Write data to CSV
-                writer.append(String.format("%d,%s,%s\n", n, multiplicand.toString(), multiplier.toString()));
+                writer.append(String.format("%d,%s,%s,%s\n", n, multiplicand.toString(), multiplier.toString(), product.toString()));
             }
         } catch (IOException e) {
             e.printStackTrace();
