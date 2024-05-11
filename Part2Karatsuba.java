@@ -12,9 +12,9 @@ class Part2Karatsuba {
             return x.multiply(y);
         }
 
-        int noOneLength = numLength(x);
+        int noOneLength = numLength(x, counter);
         counter.increment(2);
-        int noTwoLength = numLength(y);
+        int noTwoLength = numLength(y, counter);
         counter.increment(2);
         int maxNumLength = Math.max(noOneLength, noTwoLength);
         counter.increment(2);
@@ -61,9 +61,7 @@ class Part2Karatsuba {
     }
 
     // To calculate length of the number
-    public static int numLength(BigInteger x) {
-        Part2Karatsuba.PrimitiveOperationsCounter counter = new Part2Karatsuba.PrimitiveOperationsCounter();
-
+    public static int numLength(BigInteger x, PrimitiveOperationsCounter counter) {
         int noLen = 0;
         counter.increment(1);
 
@@ -72,12 +70,14 @@ class Part2Karatsuba {
             noLen++;
             counter.increment(2);
             x = x.divide(BigInteger.TEN);
+            counter.increment(2);
         }
         counter.increment(2);
         return noLen;
     }
 
     public static void main(String[] args) {
+        
         String filePath = "Dataset.csv";
 
         List<String> lines = new ArrayList<>();
