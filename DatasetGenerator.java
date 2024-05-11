@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class DatasetGenerator {
     public static void main(String[] args) {
-        String filePath = "CPT212-Assignment\\Dataset.csv";
+        String filePath = "Dataset.csv";
         try (FileWriter writer = new FileWriter(filePath)) {
             // Write header line
             writer.append("n,Multiplicand,Multiplier,Product\n");

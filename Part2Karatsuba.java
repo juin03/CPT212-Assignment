@@ -3,7 +3,6 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.io.File;
 class Part2Karatsuba {
 
     public static BigInteger mult(BigInteger x, BigInteger y, PrimitiveOperationsCounter counter, int times) {
@@ -13,10 +12,10 @@ class Part2Karatsuba {
             return x.multiply(y);
         }
 
-        int noOneLength = x.toString().length();
-        counter.increment(3);
-        int noTwoLength = y.toString().length();
-        counter.increment(3);
+        int noOneLength = numLength(x);
+        counter.increment(2);
+        int noTwoLength = numLength(y);
+        counter.increment(2);
         int maxNumLength = Math.max(noOneLength, noTwoLength);
         counter.increment(2);
 
@@ -61,8 +60,25 @@ class Part2Karatsuba {
         return result;
     }
 
+    // To calculate length of the number
+    public static int numLength(BigInteger x) {
+        Part2Karatsuba.PrimitiveOperationsCounter counter = new Part2Karatsuba.PrimitiveOperationsCounter();
+
+        int noLen = 0;
+        counter.increment(1);
+
+        while (x.compareTo(BigInteger.ZERO) > 0) {
+            counter.increment(1);
+            noLen++;
+            counter.increment(2);
+            x = x.divide(BigInteger.TEN);
+        }
+        counter.increment(2);
+        return noLen;
+    }
+
     public static void main(String[] args) {
-        String filePath = "CPT212-Assignment\\Dataset.csv";
+        String filePath = "Dataset.csv";
 
         List<String> lines = new ArrayList<>();
          try (Scanner scanner = new Scanner(new File(filePath))) {

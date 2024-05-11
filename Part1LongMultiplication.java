@@ -9,7 +9,7 @@ import java.math.BigInteger;
 
 public class Part1LongMultiplication {
     public static void main(String[] args) {
-        String filePath = "CPT212-Assignment\\Dataset.csv";
+        String filePath = "Dataset.csv";
         List<String> lines = new ArrayList<>();
 
         // Add a new header with Result and PrimitiveOperations columns
