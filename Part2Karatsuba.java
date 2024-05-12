@@ -8,55 +8,54 @@ class Part2Karatsuba {
     public static BigInteger mult(BigInteger x, BigInteger y, PrimitiveOperationsCounter counter, int times) {
         // Base case for recursion
         if (x.compareTo(BigInteger.TEN) < 0 && y.compareTo(BigInteger.TEN) < 0) {
-            counter.increment(6);  // Counting multiplication as a primitive operation
+            counter.increment(7);  // in if condition, 2 function call, 2 comparisons, 1 logical operator, 1 multiplications, 1 return statements
             return x.multiply(y);
         }
 
         int noOneLength = numLength(x, counter);
-        counter.increment(2);
+        counter.increment(2); // 1 function call, 1 assignment
         int noTwoLength = numLength(y, counter);
-        counter.increment(2);
+        counter.increment(2); // 1 function call, 1 assignment
         int maxNumLength = Math.max(noOneLength, noTwoLength);
-        counter.increment(2);
+        counter.increment(2); // 1 function call, 1 assignment
 
         int halfMaxNumLength = (maxNumLength / 2) + (maxNumLength % 2);
-        counter.increment(4);
+        counter.increment(4); // 1 division, 1 addition, 1 modulo, 1 assignment
         BigInteger maxNumLengthTen = BigInteger.TEN.pow(halfMaxNumLength);
-        counter.increment(2);
+        counter.increment(2); // 1 power, 1 assignment
 
         // Counting division as a primitive operation
         BigInteger a = x.divide(maxNumLengthTen);
-        counter.increment(2);
+        counter.increment(2); // 1 division, 1 assignment
 
         // Counting remainder as a primitive operation
         BigInteger b = x.remainder(maxNumLengthTen);
-        counter.increment(2);
+        counter.increment(2); // 1 remainder, 1 assignment
 
         // Counting division as a primitive operation
         BigInteger c = y.divide(maxNumLengthTen);
-        counter.increment(2);
+        counter.increment(2); // 1 division, 1 assignment
 
         // Counting remainder as a primitive operation
         BigInteger d = y.remainder(maxNumLengthTen);
-        counter.increment(2);
+        counter.increment(2); // 1 remainder, 1 assignment
 
         // Recursive calls
         BigInteger z0 = mult(a, c, counter, times);
-        counter.increment(2);
+        counter.increment(2); // 1 function call, 1 assignment
 
         BigInteger z1 = mult(a.add(b), c.add(d), counter, times);
-        counter.increment(4);  
-
+        counter.increment(4); // 1 function call, 2 additions, 1 assignment
         BigInteger z2 = mult(b, d, counter, times);
-        counter.increment(2);
+        counter.increment(2); // 1 function call, 1 assignment
 
         // Counting addition and subtraction as primitive operations
         BigInteger result = z0.multiply(BigInteger.TEN.pow(2 * halfMaxNumLength))
                 .add(z1.subtract(z0).subtract(z2).multiply(BigInteger.TEN.pow(halfMaxNumLength))
                 .add(z2));
-        counter.increment(10);
+        counter.increment(10); // 3 multiplications, 2 subtractions, 2 additions, 2 power, 1 assignment
 
-        counter.increment(1);
+        counter.increment(1); // 1 return statement
         return result;
     }
 
