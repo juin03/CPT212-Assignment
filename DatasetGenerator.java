@@ -10,8 +10,8 @@ public class DatasetGenerator {
             // Write header line
             writer.append("n,Multiplicand,Multiplier,Product\n");
 
-            // Loop from n-1 to n = 999
-            for (int n = 1; n < 100; n++) {
+            // Loop from n-1 to n = 1000
+            for (int n = 1; n < 1001; n++) {
                 BigInteger multiplicand = generateBigIntegerWithNDigits(n);
                 BigInteger multiplier = generateBigIntegerWithNDigits(n);
                 BigInteger product = multiplicand.multiply(multiplier);

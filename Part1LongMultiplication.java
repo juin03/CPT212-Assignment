@@ -154,8 +154,14 @@ public static MultiplicationResult multiply(BigInteger multiplier, BigInteger mu
         System.out.println("_____________________________");
         System.out.println(String.format("%" + 25 + "s", result));
         System.out.println("=============================\n");
+        if (n == 10) {
+            System.out.println("Check CSV file for the complete result. Please wait\n");
+        }
     }
-    System.out.println("Total primitive operations for " + n + " digits: " + operationCount + "\n");
+
+    if (n == 1000) {
+        System.out.println("Done with the multiplication of 1000-digit numbers\n");
+    }
 
     // Return both the result and the operation count using the new class
     operationCount++; // For the return statement

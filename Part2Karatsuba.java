@@ -8,7 +8,7 @@ class Part2Karatsuba {
     public static BigInteger mult(BigInteger x, BigInteger y, PrimitiveOperationsCounter counter, int times) {
         // Base case for recursion
         if (x.compareTo(BigInteger.TEN) < 0 && y.compareTo(BigInteger.TEN) < 0) {
-            counter.increment(5);  // Counting multiplication as a primitive operation
+            counter.increment(6);  // Counting multiplication as a primitive operation
             return x.multiply(y);
         }
 
